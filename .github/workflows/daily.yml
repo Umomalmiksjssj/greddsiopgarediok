@@ -10,12 +10,18 @@ jobs:
   docker-cycle:
     runs-on: ubuntu-latest
     timeout-minutes: 290
+
     steps:
+      # Step 1: Checkout this repo (contains script.sh, one.sh, two.sh, three.sh)
       - name: Checkout repo
         uses: actions/checkout@v4
-        
-      - name: Make script executable
-        run: chmod +x script.sh
 
+      # Step 2: Ensure all scripts are executable
+      - name: Make scripts executable
+        run: |
+          chmod +x script.sh
+          chmod +x one.sh two.sh three.sh
+
+      # Step 3: Run the orchestrator script
       - name: Run cyclic Docker script
         run: ./script.sh
